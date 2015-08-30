@@ -35,7 +35,7 @@ namespace Detox
         public string DataPath { get; set; }
         
         public ObservableCollection<ContactViewModel> List = new ObservableCollection<ContactViewModel>();
-        public ToxViewModel User = new ToxViewModel();
+        public ToxViewModel User = new ToxViewModel() { Image = "./defaultpic.png" }; // TODO: Actually store the user's avatar
 
         public ToxManager(string path)
         {
@@ -81,9 +81,9 @@ namespace Detox
 
             contact.ID = id;
             contact.Name = Tox.GetFriendName(id);
-            contact.Subtext = Tox.GetFriendStatusMessage(id);
-            contact.Status = Utilities.GetDetoxStatusByFriendNumber(id, Tox);
-            contact.Timestamp = "5m";
+            contact.Subtext = Tox.GetFriendStatusMessage(id); // TODO: Replace this with last message when we have a conversation with the contact
+            contact.Status = Utilities.GetDetoxStatusByFriendNumber(id, Tox); 
+            contact.Timestamp = "5m"; // TODO: Replace this with last messaged
 
             if (!File.Exists(Utilities.GetAvatarPath(id, Tox)))
                 contact.Image = Path.GetFullPath("./defaultpic.png");
@@ -95,6 +95,8 @@ namespace Detox
 
         public void Sort()
         {
+            // DOESN'T WORK YET
+
             List = new ObservableCollection<ContactViewModel>(List.OrderBy(vm => vm.Status));
         }
 

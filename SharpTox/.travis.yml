@@ -1,0 +1,12 @@
+## Travis CI Integration
+
+language: csharp
+solution: SharpTox.sln
+
+install:
+  - nuget restore SharpTox.sln
+# - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
+
+script:
+  - xbuild /p:Configuration=Debug SharpTox.sln
+# - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./SharpTox/bin/Debug/SharpTox.Tests.dll

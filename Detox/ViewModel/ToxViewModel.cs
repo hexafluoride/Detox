@@ -13,7 +13,7 @@ namespace Detox.ViewModel
         private string nick;
         private string statusmsg;
         private Status status;
-        private Uri image;
+        private string image;
 
         public string Nick
         {
@@ -33,7 +33,7 @@ namespace Detox.ViewModel
             set { status = value; NotifyUpdate("Status"); }
         }
 
-        public Uri Image
+        public string Image
         {
             get { return image; }
             set { image = value; NotifyUpdate("Image"); }

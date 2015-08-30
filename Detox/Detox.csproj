@@ -120,15 +120,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="G:\SharpTox\SharpTox\SharpTox.csproj">
-      <Project>{b3ab7d92-3d7a-41b2-86d1-d1b256b07663}</Project>
-      <Name>SharpTox</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="defaultpic.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SharpTox\SharpTox\SharpTox.csproj">
+      <Project>{b3ab7d92-3d7a-41b2-86d1-d1b256b07663}</Project>
+      <Name>SharpTox</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
