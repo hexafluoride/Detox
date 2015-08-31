@@ -9,6 +9,9 @@ using SharpTox.Core;
 using System.IO;
 
 using Detox.ViewModel;
+using System.Collections.ObjectModel;
+using System.Threading;
+using System.Windows;
 
 namespace Detox
 {
@@ -41,6 +44,17 @@ namespace Detox
         public static Status GetDetoxStatusByFriendNumber(int number, Tox Tox)
         {
             return Utilities.ToxStatusToDetoxStatus(Tox.GetFriendStatus(number), Tox.GetFriendConnectionStatus(number));
+        }
+
+        // http://stackoverflow.com/a/16344936
+        public static void Sort(ObservableCollection<ContactViewModel> collection)
+        {
+            Application.Current.Dispatcher.Invoke(delegate
+            {
+                List<ContactViewModel> sorted = collection.OrderBy(x => x.Status).ToList();
+                for (int i = 0; i < sorted.Count(); i++)
+                    collection.Move(collection.IndexOf(sorted[i]), i);
+            });
         }
     }
 }

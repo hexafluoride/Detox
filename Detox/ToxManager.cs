@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 using SharpTox;
 using SharpTox.Core;
@@ -93,13 +94,6 @@ namespace Detox
             List.Add(contact);
         }
 
-        public void Sort()
-        {
-            // DOESN'T WORK YET
-
-            List = new ObservableCollection<ContactViewModel>(List.OrderBy(vm => vm.Status));
-        }
-
         public ContactViewModel GetContactViewModelByFriendNumber(int id)
         {
             return List.FirstOrDefault(c => c.ID == id);
@@ -127,7 +121,7 @@ namespace Detox
         private void Tox_OnFriendStatusChanged(object sender, ToxEventArgs.StatusEventArgs e)
         {
             GetContactViewModelByFriendNumber(e.FriendNumber).Status = Utilities.GetDetoxStatusByFriendNumber(e.FriendNumber, Tox);
-            Sort();
+            Utilities.Sort(List);
         }
 
         private void Tox_OnFileSendRequestReceived(object sender, ToxEventArgs.FileSendRequestEventArgs e)
