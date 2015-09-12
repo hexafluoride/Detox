@@ -63,6 +63,8 @@ namespace Detox
             PopulateList();
 
             Tox.Start();
+
+            Tox.StatusMessage = "Toxing on Detox";
         }
 
         private void PopulateList()

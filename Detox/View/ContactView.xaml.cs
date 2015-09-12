@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Detox.View
 {
     /// <summary>
-    /// Interaction logic for ContextBar.xaml
+    /// Interaction logic for Contact.xaml
     /// </summary>
-    public partial class ContextBar : UserControl
+    public partial class ContactView : UserControl
     {
-        public ContextBar()
+        public ContactView()
         {
             InitializeComponent();
         }

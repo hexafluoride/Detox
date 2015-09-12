@@ -65,10 +65,10 @@
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="ViewModel\ContextViewModel.cs" />
     <Compile Include="ViewModel\ToxViewModel.cs" />
-    <Compile Include="View\ContextBar.xaml.cs">
-      <DependentUpon>ContextBar.xaml</DependentUpon>
+    <Compile Include="View\ContextBarView.xaml.cs">
+      <DependentUpon>ContextBarView.xaml</DependentUpon>
     </Compile>
-    <Page Include="View\Contact.xaml">
+    <Page Include="View\ContactView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -80,14 +80,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="View\Contact.xaml.cs">
-      <DependentUpon>Contact.xaml</DependentUpon>
+    <Compile Include="View\ContactView.xaml.cs">
+      <DependentUpon>ContactView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\ContextBar.xaml">
+    <Page Include="View\ContextBarView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
