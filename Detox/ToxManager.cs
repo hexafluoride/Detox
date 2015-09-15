@@ -36,7 +36,7 @@ namespace Detox
         public string DataPath { get; set; }
         
         public ObservableCollection<ContactViewModel> List = new ObservableCollection<ContactViewModel>();
-        public ToxViewModel User = new ToxViewModel() { Image = "./defaultpic.png" }; // TODO: Actually store the user's avatar
+        public ToxViewModel User = new ToxViewModel() { Image = "./defaultpic.png", Status = Status.Offline }; // TODO: Actually store the user's avatar
 
         public ToxManager(string path)
         {
@@ -107,7 +107,23 @@ namespace Detox
             Tox.OnFileSendRequestReceived += Tox_OnFileSendRequestReceived;
             Tox.OnFriendStatusChanged += Tox_OnFriendStatusChanged;
             Tox.OnFriendNameChanged += Tox_OnFriendNameChanged;
+            Tox.OnFriendRequestReceived += Tox_OnFriendRequestReceived;
             Tox.OnFriendStatusMessageChanged += Tox_OnFriendStatusMessageChanged;
+            Tox.OnFriendConnectionStatusChanged += Tox_OnFriendConnectionStatusChanged;
+        }
+
+        private void Tox_OnFriendConnectionStatusChanged(object sender, ToxEventArgs.FriendConnectionStatusEventArgs e)
+        {
+            var contact = GetContactViewModelByFriendNumber(e.FriendNumber);
+
+            contact.Status = Utilities.GetDetoxStatusByFriendNumber(e.FriendNumber, Tox);
+            
+            Utilities.Sort(List);
+        }
+
+        private void Tox_OnFriendRequestReceived(object sender, ToxEventArgs.FriendRequestEventArgs e)
+        {
+            Tox.AddFriendNoRequest(e.PublicKey);
         }
 
         private void Tox_OnFriendStatusMessageChanged(object sender, ToxEventArgs.StatusMessageEventArgs e)
@@ -122,7 +138,10 @@ namespace Detox
 
         private void Tox_OnFriendStatusChanged(object sender, ToxEventArgs.StatusEventArgs e)
         {
-            GetContactViewModelByFriendNumber(e.FriendNumber).Status = Utilities.GetDetoxStatusByFriendNumber(e.FriendNumber, Tox);
+            var contact = GetContactViewModelByFriendNumber(e.FriendNumber);
+
+            contact.Status = Utilities.GetDetoxStatusByFriendNumber(e.FriendNumber, Tox);
+
             Utilities.Sort(List);
         }
 
@@ -154,5 +173,29 @@ namespace Detox
             else
                 User.Status = Status.Available;
         }
+
+        #region test code for animations
+
+        private void Loop()
+        {
+            Random rnd = new Random();
+
+            while (true)
+            {
+                int friend = rnd.Next(Tox.Friends.Count() - 1);
+
+                var cvm = GetContactViewModelByFriendNumber(friend);
+                Status status = (Status)rnd.Next(3);
+
+                Console.WriteLine("{0} {1} -> {2}", Tox.GetFriendName(friend), cvm.Status, status);
+
+                cvm.Status = status;
+                Utilities.Sort(List);
+
+                Thread.Sleep(3000);
+            }
+        }
+
+        #endregion
     }
 }

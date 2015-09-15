@@ -19,22 +19,36 @@ namespace Detox.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            string path = value as string;
-            if (path != null)
+            try
             {
-                BitmapImage image = new BitmapImage();
-
-                using (FileStream stream = File.OpenRead(path))
+                string path = value as string;
+                if (path != null)
                 {
-                    image.BeginInit();
-                    image.StreamSource = stream;
-                    image.CacheOption = BitmapCacheOption.OnLoad;
-                    image.EndInit(); // load the image from the stream
-                } // close the stream
-                return image;
-            }
+                    try
+                    {
+                        BitmapImage image = new BitmapImage();
 
-            return null;
+                        using (FileStream stream = File.OpenRead(path))
+                        {
+                            image.BeginInit();
+                            image.StreamSource = stream;
+                            image.CacheOption = BitmapCacheOption.OnLoad;
+                            image.EndInit(); // load the image from the stream
+                        } // close the stream
+                        return image;
+                    }
+                    catch
+                    {
+
+                    }
+                }
+
+                return Convert("./defaultpic.png", null, null, null);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public object ConvertBack(object value, Type type, object parameter, CultureInfo culture)

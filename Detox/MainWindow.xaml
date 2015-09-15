@@ -216,29 +216,6 @@
                 <ScrollViewer Grid.Row="2" Style="{StaticResource SVStyle}">
                     <ItemsControl x:Name="Friends">
                         <ItemsControl.Resources>
-                            <Style TargetType="{x:Type View:ContactView}">
-                                <Setter Property="LayoutTransform">
-                                    <Setter.Value>
-                                        <ScaleTransform x:Name="transform" />
-                                    </Setter.Value>
-                                </Setter>
-                                <Style.Triggers>
-                                    <EventTrigger RoutedEvent="Loaded">
-                                        <EventTrigger.Actions>
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.5" To="1" Duration="0:0:.5" />
-                                                    <DoubleAnimation Storyboard.TargetProperty="LayoutTransform.ScaleY" From="0" Duration="0:0:.3">
-                                                        <DoubleAnimation.EasingFunction>
-                                                            <QuinticEase />
-                                                        </DoubleAnimation.EasingFunction>
-                                                    </DoubleAnimation>
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </EventTrigger.Actions>
-                                    </EventTrigger>
-                                </Style.Triggers>
-                            </Style>
                         </ItemsControl.Resources>
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>

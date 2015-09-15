@@ -20,12 +20,26 @@
 
         <Converters:StatusToBrushConverter x:Key="StatusToBrushConverter" />
         <Converters:PathToImageConverter x:Key="PathToImageConverter" />
+
+        <Storyboard x:Key="Animation">
+            <DoubleAnimation Storyboard.TargetName="MainGrid" Storyboard.TargetProperty="Opacity" From="0.5" To="1" Duration="0:0:.5" />
+            <DoubleAnimation Storyboard.TargetName="MainGrid" Storyboard.TargetProperty="LayoutTransform.ScaleY" From="0" Duration="0:0:.3">
+                <DoubleAnimation.EasingFunction>
+                    <QuinticEase />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Name="MainGrid">
+        <Grid.LayoutTransform>
+            <ScaleTransform ScaleX="1" ScaleY="1" />
+        </Grid.LayoutTransform>
+        
         <Grid.Style>
             <Style TargetType="Grid">
                 <Setter Property="Background" Value="{StaticResource Background}" />
+                
                 <Style.Triggers>
                     <!--<MultiDataTrigger>
                         <MultiDataTrigger.Conditions>
@@ -64,7 +78,15 @@
                 </Image.Clip>
             </Image>
 
-            <Ellipse Margin="4" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="11" Height="11" Fill="{Binding Status, Converter={StaticResource StatusToBrushConverter}}" Stroke="{Binding Path=Background, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}, AncestorLevel=2}}" StrokeThickness="2" />
+            <Ellipse Margin="4" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="11" Height="11" Fill="{Binding Status, Converter={StaticResource StatusToBrushConverter}, NotifyOnTargetUpdated=True}" Stroke="{Binding Path=Background, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}, AncestorLevel=2}}" StrokeThickness="2">
+                <Ellipse.Triggers>
+                    <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                        <BeginStoryboard Storyboard="{StaticResource Animation}">
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Ellipse.Triggers>
+            </Ellipse>
+            
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="21" />
